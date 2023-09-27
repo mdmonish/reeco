@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import Header from "./components/Header";
+import Navbar from "./components/Navbar";
+import OrderDetails from "./components/OrderDetails";
+import OrderList from "./components/OrderList";
+import axios from "axios";
+import Popup from "./components/Popup";
+import EditPopup from "./components/EditPopup";
 
 function App() {
+  const [order, setOrder] = useState([]);
+  const [popUp, setPopUp] = useState(false);
+  const [toggleEdit, setToggleEdit] = useState(false);
+  const [keyId, setKeyId] = useState();
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const { data } = await axios.get("./data.json");
+        setOrder(data);
+      } catch (err) {
+        console.log("err");
+      }
+    };
+    fetch();
+  }, []);
+  console.log(order);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Navbar />
+      <Header />
+      <div className="scrolling">
+        <OrderDetails />
+        <OrderList
+          setPopUp={setPopUp}
+          setKeyId={setKeyId}
+          setToggleEdit={setToggleEdit}
+        />
+      </div>
+      {popUp && <Popup setPopUp={setPopUp} id={keyId} />}
+      {toggleEdit && <EditPopup setToggleEdit={setToggleEdit} />}
     </div>
   );
 }
