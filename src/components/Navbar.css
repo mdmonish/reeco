@@ -1,0 +1,28 @@
+.text-align{
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+.nav{
+    background: green;     
+    padding: 15px 60px
+}
+a{
+    padding: 0 20px;
+            text-decoration: none;
+            color: white;
+}
+.logo{
+    font-size: 26px;
+}
+.link{
+    font-size: 16px;
+}
+.profile{
+    font-size: 16px;
+            display: flex;
+            align-items: center;
+}
+.cart{
+    color: white; transform: scaleX(-1);
+}
